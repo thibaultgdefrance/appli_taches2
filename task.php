@@ -47,12 +47,12 @@
                      <input type="text" name="task_name" value="" placeholder="nom de la tache">
                      <input type="textarea" name="description" value="" placeholder="description">
                      <input type="date" name="deadline" value="" placeholder="deadline yyyy-mm-jj">
-                     <select class="" name="niveau" placeholder="niveau">
+                     <select class="" name="niveau">
                          <option value="">niveau</option>
                          <?php
                             foreach ($levels as $value) {
                                 ?>
-                                <option value="<?php $value['id'] ?> "><?php echo $value['level_name'].'('.$value['poids'].')' ?></option>
+                                <option value="<?php echo $value['id'] ;?> "><?php echo $value['level_name'].'('.$value['poids'].')';?></option>
                                 <?php
                             }
                           ?>
@@ -123,6 +123,9 @@
                         echo $value['name'].'<br>';
                         echo $value['description'].'<br>';
                         echo $value['deadline'].'<br>';
+                        ?>
+                        <a href="task_modification.php?id2=<?php echo $value['id2']?>">modifier</a><br>
+                        <?php
                     }
                 }
               ?>

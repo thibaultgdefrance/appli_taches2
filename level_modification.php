@@ -15,7 +15,7 @@
     $data=$bdd->prepare('SELECT * FROM level WHERE id=?');
     $data->execute(array($_GET['id']));
     $data2=$data->fetch();
-    var_dump($data2);
+
 
 ?>
 <!DOCTYPE html>

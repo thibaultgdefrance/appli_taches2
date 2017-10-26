@@ -4,8 +4,7 @@ try {
 } catch (Exception $e) {
     die('Erreure '.$e->getMessage());
 }
-$a=$_GET['id2'];
-echo $a;
+
 
 if (isset($_POST['task_name']) AND isset($_POST['description']) AND isset($_POST['deadline']) AND isset($_POST['niveau']) AND isset($_POST['accomplie'])) {
     $req1= $bdd->prepare('UPDATE task SET name=?, description=?, deadline=?, level_id=?, accomplie=? WHERE id2=?');
@@ -20,7 +19,12 @@ $levels=$getLevel->fetchAll();
 $data=$bdd->prepare('SELECT * FROM task WHERE id2=?');
 $data->execute(array($_GET['id2']));
 $data2=$data->fetch();
-var_dump($data2);
+
+/*print($_POST['name']);
+print($_POST['description']);
+print($_POST['deadline']);
+print($_POST['accomplie']);*/
+print($_POST['level_id']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,16 +33,19 @@ var_dump($data2);
         <title></title>
     </head>
     <body>
+        <h2>
+        <a href="task.php">Retour à la page d'accueil</a>
+        </h2>
         <form class="" action="" method="post">
             <input type="text" name="task_name" value="<?php echo $data2['name'];?>" placeholder="nom de la tache">
             <input type="textarea" name="description" value="<?php echo $data2['description'];?>" placeholder="description">
             <input type="date" name="deadline" value="<?php echo $data2['deadline'];?>" placeholder="deadline yyyy-mm-jj">
-            <select class="" name="niveau" placeholder="niveau">
+            <select class="" name="niveau">
                 <option value="">niveau</option>
                 <?php
                    foreach ($levels as $value) {
                        ?>
-                       <option value="<?php $value['id'] ?> "><?php echo $value['level_name'].'('.$value['poids'].')' ?></option>
+                       <option value="<?php echo $value['id'] ;?> "><?php echo $value['level_name'].'('.$value['poids'].')'.'('.$value['id'].')';?></option>
                        <?php
                    }
                  ?>
@@ -51,7 +58,7 @@ var_dump($data2);
             <p>non</p>
             <input type="radio" name="accomplie" value="non" checked="checked">
 
-            <button type="submit" name="button">ajouter</button>
+            <button type="submit" name="button">modifier</button>
             <div class="alert-danger">
                 <?php if (isset($erreure1)) {
                     echo "veillez remplir tout les champs";
